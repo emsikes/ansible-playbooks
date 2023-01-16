@@ -1,0 +1,9 @@
+# yum-update.yml
+---
+  - hosts: webservers:loadbalancers
+    # escalate priveleges to run as sudo
+    become: true
+    tasks:
+      - name: Update yum packages
+        # =* is equivalent to all packages
+        yum: name=* state=latest

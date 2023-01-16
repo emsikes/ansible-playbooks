@@ -1,0 +1,11 @@
+# fileCopy.yml
+---
+  - hosts: loadbalancers
+    tasks:
+      - name: Copy config file
+        copy: src=/ansible.cfg dest=/etc/ansible.cfg
+
+  - hosts: webservers
+    tasks:
+      - name: Synchronize folders
+        synchronize: src=./app dest=/var/www/html/app
