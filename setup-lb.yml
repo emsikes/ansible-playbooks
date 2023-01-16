@@ -1,0 +1,16 @@
+# setup-lb.yml
+# Proxy requests based on a dynamic list built by l-config.j2
+# access lb IP/DNS name with /balancer-manager to view balance members and redirects
+---
+  - hosts: loadbalancers
+    become: true
+    tasks:
+      - name: Create template
+        template: 
+          src: ../config/lb-config.j2
+          dest: /etc/httpd/conf.d/lb.conf
+          owner: bin
+          group: wheel
+          mode: 064
+      - name: Restart Apache
+        service: name=httpd state=restarted
